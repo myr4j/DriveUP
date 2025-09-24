@@ -1,4 +1,4 @@
-package com.driveup.ui.notifications;
+package com.driveup.ui.data;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,14 +12,14 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.driveup.databinding.FragmentNotificationsBinding;
 
-public class NotificationsFragment extends Fragment {
+public class DataFragment extends Fragment {
 
     private FragmentNotificationsBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        NotificationsViewModel notificationsViewModel =
-                new ViewModelProvider(this).get(NotificationsViewModel.class);
+        DataViewModel notificationsViewModel =
+                new ViewModelProvider(this).get(DataViewModel.class);
 
         binding = FragmentNotificationsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();

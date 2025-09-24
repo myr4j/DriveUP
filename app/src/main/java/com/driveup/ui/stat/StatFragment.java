@@ -1,4 +1,4 @@
-package com.driveup.ui.dashboard;
+package com.driveup.ui.stat;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,15 +11,14 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.driveup.databinding.FragmentDashboardBinding;
-
-public class DashboardFragment extends Fragment {
+public class StatFragment extends Fragment {
 
     private FragmentDashboardBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        DashboardViewModel dashboardViewModel =
-                new ViewModelProvider(this).get(DashboardViewModel.class);
+        StatViewModel dashboardViewModel =
+                new ViewModelProvider(this).get(StatViewModel.class);
 
         binding = FragmentDashboardBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
