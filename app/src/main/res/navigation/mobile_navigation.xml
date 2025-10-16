@@ -15,7 +15,7 @@
         android:id="@+id/navigation_ride"
         android:name="com.driveup.ui.ride.RideFragment"
         android:label="@string/title_ride"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_ride" />
 
     <fragment
         android:id="@+id/navigation_importexport"

@@ -83,7 +83,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:lineSpacingExtra="4dp"
-            android:text="💡 Le fichier CSV sera sauvegardé dans le dossier Téléchargements\n\nFormat CSV:\nDate,Heure Début,Heure Fin,Prix\n2024-01-15,09:30,10:45,25.50"
+            android:text="💡 Le fichier CSV sera sauvegardé dans le dossier Téléchargements\nNom: courses_AAAA-MM-JJ_HH-mm-ss.csv\n\n📥 L'import vous permet de choisir le fichier CSV à importer\nLes données sont ajoutées aux courses existantes\n\nFormat CSV:\nID,Date,Heure Début,Heure Fin,Prix\n1,2024-01-15,09:30,10:45,25.50"
             android:textAlignment="center"
             android:textColor="@android:color/darker_gray"
             android:textSize="14sp"
