@@ -22,7 +22,8 @@ public class RideFragment extends Fragment implements RideAdapter.OnRideClickLis
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        rideViewModel = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(requireActivity().getApplication())).get(RideViewModel.class);
+        // Utiliser le scope de l'activité pour partager le ViewModel entre fragments
+        rideViewModel = new ViewModelProvider(requireActivity(), new ViewModelProvider.AndroidViewModelFactory(requireActivity().getApplication())).get(RideViewModel.class);
 
         binding = FragmentRideBinding.inflate(inflater, container, false);
         View root = binding.getRoot();

@@ -235,11 +235,26 @@ public class ImportExportFragment extends Fragment {
             Log.d("ImportExport", "Import completed, count: " + importedCount);
             
             showStatus("✅ Import réussi!\n" + importedCount + " courses ajoutées\nFichier: " + fileName, true);
+            
+            // Notifier les autres fragments que les données ont été mises à jour
+            notifyDataChanged();
         } catch (Exception e) {
             Log.e("ImportExport", "Error during import", e);
             showStatus("❌ Erreur lors de l'import:\n" + e.getMessage(), false);
         } finally {
             setButtonsEnabled(true);
+        }
+    }
+    
+    private void notifyDataChanged() {
+        try {
+            // Utiliser le même scope d'activité pour accéder au même ViewModel
+            androidx.lifecycle.ViewModelProvider viewModelProvider = new androidx.lifecycle.ViewModelProvider(requireActivity(), new androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory(requireActivity().getApplication()));
+            com.driveup.ui.ride.RideViewModel rideViewModel = viewModelProvider.get(com.driveup.ui.ride.RideViewModel.class);
+            rideViewModel.refreshRides();
+            Log.d("ImportExport", "Notified RideViewModel to refresh data");
+        } catch (Exception e) {
+            Log.e("ImportExport", "Error notifying data change", e);
         }
     }
 

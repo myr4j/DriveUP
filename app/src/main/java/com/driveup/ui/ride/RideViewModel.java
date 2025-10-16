@@ -86,4 +86,9 @@ public class RideViewModel extends AndroidViewModel {
         ride.setPrice(price);
         addRide(ride);
     }
+
+    public void refreshRides() {
+        Log.d(TAG, "Refreshing rides from external source");
+        loadRides();
+    }
 }
