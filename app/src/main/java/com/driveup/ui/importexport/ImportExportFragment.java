@@ -1,4 +1,4 @@
-package com.driveup.ui.data;
+package com.driveup.ui.importexport;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,14 +12,14 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.driveup.databinding.FragmentNotificationsBinding;
 
-public class DataFragment extends Fragment {
+public class ImportExportFragment extends Fragment {
 
     private FragmentNotificationsBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        DataViewModel notificationsViewModel =
-                new ViewModelProvider(this).get(DataViewModel.class);
+        ImportExportViewModel notificationsViewModel =
+                new ViewModelProvider(this).get(ImportExportViewModel.class);
 
         binding = FragmentNotificationsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
