@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context=".ui.importexport.ImportExportFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="24dp"
+        android:minHeight="400dp">
+
+        <TextView
+            android:id="@+id/title_importexport"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="48dp"
+            android:text="Import/Export des données"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_export"
+            android:layout_width="0dp"
+            android:layout_height="64dp"
+            android:layout_marginTop="150dp"
+            android:drawablePadding="8dp"
+            android:text="📤 Exporter en fichier CSV"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:cornerRadius="12dp"
+            app:iconGravity="textStart"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title_importexport"
+            app:layout_constraintWidth_percent="0.9" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_import"
+            android:layout_width="0dp"
+            android:layout_height="64dp"
+            android:layout_marginTop="15dp"
+            android:drawablePadding="8dp"
+            android:text="📥 Importer un fichier CSV"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:cornerRadius="12dp"
+            app:iconGravity="textStart"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/button_export"
+            app:layout_constraintWidth_percent="0.9" />
+
+        <TextView
+            android:id="@+id/text_status"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="16dp"
+            android:text=""
+            android:textAlignment="center"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:background="@android:color/transparent"
+            android:padding="16dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/button_import" />
+
+        <TextView
+            android:id="@+id/text_instructions"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:lineSpacingExtra="4dp"
+            android:text="💡 Le fichier CSV sera sauvegardé dans le dossier Téléchargements\n\nFormat CSV:\nDate,Heure Début,Heure Fin,Prix\n2024-01-15,09:30,10:45,25.50"
+            android:textAlignment="center"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_status" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

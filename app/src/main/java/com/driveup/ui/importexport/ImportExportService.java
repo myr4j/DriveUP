@@ -2,7 +2,7 @@ package com.driveup.ui.importexport;
 
 public interface ImportExportService {
 
-    void importData();
+    int importData();
 
-    void exportData();
+    int exportData();
 }
