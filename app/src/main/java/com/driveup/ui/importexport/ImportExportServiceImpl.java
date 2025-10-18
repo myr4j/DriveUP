@@ -21,12 +21,16 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class ImportExportServiceImpl implements ImportExportService {
     
     private static final String TAG = "ImportExportService";
     private static final String CSV_HEADER = "ID,Date,Heure Début,Heure Fin,Prix";
+    private static final String DAILY_CSV_HEADER = "Date,Heure Début Première Course,Heure Fin Dernière Course,Nombre de Courses,Total (€)";
     
     private Context context;
     private DataBaseHelper dbHelper;
@@ -89,6 +93,24 @@ public class ImportExportServiceImpl implements ImportExportService {
             throw new RuntimeException("Erreur lors de l'export: " + e.getMessage());
         }
     }
+
+    @Override
+    public int exportDailyData() {
+        try {
+            List<Ride> rides = dbHelper.getAllRides();
+            if (rides.isEmpty()) {
+                throw new RuntimeException("Aucune course à exporter");
+            }
+            
+            List<DailyRideSummary> dailySummaries = createDailySummaries(rides);
+            File csvFile = getDailyCsvFile();
+            writeDailyCsvFile(csvFile, dailySummaries);
+            return dailySummaries.size();
+        } catch (Exception e) {
+            Log.e(TAG, "Error exporting daily data", e);
+            throw new RuntimeException("Erreur lors de l'export journalier: " + e.getMessage());
+        }
+    }
     
     private File getCsvFile() {
         File downloadsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
@@ -96,7 +118,18 @@ public class ImportExportServiceImpl implements ImportExportService {
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss");
         String timestamp = now.format(formatter);
-        String filename = "courses_" + timestamp + ".csv";
+        String filename = "courses_brut_" + timestamp + ".csv";
+        
+        return new File(downloadsDir, filename);
+    }
+
+    private File getDailyCsvFile() {
+        File downloadsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+        
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss");
+        String timestamp = now.format(formatter);
+        String filename = "courses_journalier_" + timestamp + ".csv";
         
         return new File(downloadsDir, filename);
     }
@@ -181,6 +214,56 @@ public class ImportExportServiceImpl implements ImportExportService {
                       .append(ride.getEndHour().format(timeFormatter))
                       .append(",")
                       .append(String.valueOf(ride.getPrice()))
+                      .append("\n");
+            }
+        }
+    }
+
+    private List<DailyRideSummary> createDailySummaries(List<Ride> rides) {
+        // Grouper les courses par date
+        Map<LocalDate, List<Ride>> ridesByDate = rides.stream()
+                .collect(Collectors.groupingBy(Ride::getDate));
+
+        List<DailyRideSummary> summaries = new ArrayList<>();
+
+        for (Map.Entry<LocalDate, List<Ride>> entry : ridesByDate.entrySet()) {
+            LocalDate date = entry.getKey();
+            List<Ride> dayRides = entry.getValue();
+
+            // Trier les courses par heure de début
+            dayRides.sort(Comparator.comparing(Ride::getStartHour));
+
+            // Calculer les statistiques
+            LocalTime firstRideStart = dayRides.get(0).getStartHour();
+            LocalTime lastRideEnd = dayRides.get(dayRides.size() - 1).getEndHour();
+            int rideCount = dayRides.size();
+            double totalPrice = dayRides.stream().mapToDouble(Ride::getPrice).sum();
+
+            summaries.add(new DailyRideSummary(date, firstRideStart, lastRideEnd, rideCount, totalPrice));
+        }
+
+        // Trier par date
+        summaries.sort(Comparator.comparing(DailyRideSummary::getDate));
+        return summaries;
+    }
+
+    private void writeDailyCsvFile(File csvFile, List<DailyRideSummary> summaries) throws IOException {
+        try (FileWriter writer = new FileWriter(csvFile)) {
+            writer.append(DAILY_CSV_HEADER).append("\n");
+
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+            
+            for (DailyRideSummary summary : summaries) {
+                writer.append(summary.getDate().format(dateFormatter))
+                      .append(",")
+                      .append(summary.getFirstRideStart().format(timeFormatter))
+                      .append(",")
+                      .append(summary.getLastRideEnd().format(timeFormatter))
+                      .append(",")
+                      .append(String.valueOf(summary.getRideCount()))
+                      .append(",")
+                      .append(String.format("%.2f", summary.getTotalPrice()))
                       .append("\n");
             }
         }

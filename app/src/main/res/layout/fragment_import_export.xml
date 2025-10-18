@@ -11,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="24dp"
-        android:minHeight="400dp">
+        android:paddingBottom="120dp"
+        android:minHeight="600dp">
 
         <TextView
             android:id="@+id/title_importexport"
@@ -29,12 +30,12 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/button_export"
+            android:id="@+id/button_export_journalier"
             android:layout_width="0dp"
             android:layout_height="64dp"
-            android:layout_marginTop="150dp"
+            android:layout_marginTop="36dp"
             android:drawablePadding="8dp"
-            android:text="📤 Exporter en fichier CSV"
+            android:text="📊 Export Journalier "
             android:textSize="18sp"
             android:textStyle="bold"
             app:cornerRadius="12dp"
@@ -45,10 +46,26 @@
             app:layout_constraintWidth_percent="0.9" />
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_export_brut"
+            android:layout_width="0dp"
+            android:layout_height="64dp"
+            android:layout_marginTop="1dp"
+            android:drawablePadding="8dp"
+            android:text="📤 Export en CSV de la base de données"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:cornerRadius="12dp"
+            app:iconGravity="textStart"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/button_export_journalier"
+            app:layout_constraintWidth_percent="0.9" />
+
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/button_import"
             android:layout_width="0dp"
             android:layout_height="64dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="1dp"
             android:drawablePadding="8dp"
             android:text="📥 Importer un fichier CSV"
             android:textSize="18sp"
@@ -57,7 +74,7 @@
             app:iconGravity="textStart"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/button_export"
+            app:layout_constraintTop_toBottomOf="@id/button_export_brut"
             app:layout_constraintWidth_percent="0.9" />
 
         <TextView
@@ -81,9 +98,9 @@
             android:id="@+id/text_instructions"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="8dp"
             android:lineSpacingExtra="4dp"
-            android:text="💡 Le fichier CSV sera sauvegardé dans le dossier Téléchargements\nNom: courses_AAAA-MM-JJ_HH-mm-ss.csv\n\n📥 L'import vous permet de choisir le fichier CSV à importer\nLes données sont ajoutées aux courses existantes\n\nFormat CSV:\nID,Date,Heure Début,Heure Fin,Prix\n1,2024-01-15,09:30,10:45,25.50"
+            android:text="💡 Les fichiers CSV seront sauvegardés dans le dossier Téléchargements\n\n📊 EXPORT JOURNALIER:\n• Résumé par jour\n• Nom: courses_journalier_AAAA-MM-JJ_HH-mm-ss.csv\n• Format: Date,Heure Début Première Course,Heure Fin Dernière Course,Nombre de Courses,Total (€)\n\n📤 EXPORT BRUT:\n• Toutes les courses individuelles\n• Nom: courses_brut_AAAA-MM-JJ_HH-mm-ss.csv\n• Format: ID,Date,Heure Début,Heure Fin,Prix\n\n📥 IMPORT:\n• Choisir un fichier CSV à importer\n• Les données sont ajoutées aux courses existantes\n• Format CSV: ID,Date,Heure Début,Heure Fin,Prix\n• Exemple: 1,2024-01-15,09:30,10:45,25.50"
             android:textAlignment="center"
             android:textColor="@android:color/darker_gray"
             android:textSize="14sp"

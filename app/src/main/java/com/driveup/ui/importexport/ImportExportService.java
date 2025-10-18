@@ -5,4 +5,6 @@ public interface ImportExportService {
     int importData();
 
     int exportData();
+
+    int exportDailyData();
 }

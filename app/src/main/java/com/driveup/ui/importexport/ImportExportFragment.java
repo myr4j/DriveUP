@@ -34,7 +34,8 @@ public class ImportExportFragment extends Fragment {
     }
 
     private void setupButtonListeners() {
-        binding.buttonExport.setOnClickListener(v -> performExport());
+        binding.buttonExportBrut.setOnClickListener(v -> performExportBrut());
+        binding.buttonExportJournalier.setOnClickListener(v -> performExportJournalier());
         binding.buttonImport.setOnClickListener(v -> performImport());
     }
     
@@ -58,14 +59,27 @@ public class ImportExportFragment extends Fragment {
     }
 
 
-    private void performExport() {
+    private void performExportBrut() {
         try {
-            showStatus("🔄 Export en cours...", false);
+            showStatus("🔄 Export brut en cours...", false);
             int exportedCount = importExportService.exportData();
-            showStatus("✅ Export réussi!\n" + exportedCount + " courses exportées dans le dossier Téléchargements", true);
+            showStatus("✅ Export brut réussi!\n" + exportedCount + " courses exportées dans le dossier Téléchargements", true);
         } catch (Exception e) {
-            Log.e("ImportExport", "Error during export", e);
-            showStatus("❌ Erreur lors de l'export:\n" + e.getMessage(), false);
+            Log.e("ImportExport", "Error during brut export", e);
+            showStatus("❌ Erreur lors de l'export brut:\n" + e.getMessage(), false);
+        } finally {
+            setButtonsEnabled(true);
+        }
+    }
+
+    private void performExportJournalier() {
+        try {
+            showStatus("🔄 Export journalier en cours...", false);
+            int exportedCount = importExportService.exportDailyData();
+            showStatus("✅ Export journalier réussi!\n" + exportedCount + " jours exportés dans le dossier Téléchargements", true);
+        } catch (Exception e) {
+            Log.e("ImportExport", "Error during daily export", e);
+            showStatus("❌ Erreur lors de l'export journalier:\n" + e.getMessage(), false);
         } finally {
             setButtonsEnabled(true);
         }
@@ -147,7 +161,10 @@ public class ImportExportFragment extends Fragment {
 
     private void setButtonsEnabled(boolean enabled) {
         binding.buttonImport.setEnabled(enabled);
-        binding.buttonExport.setAlpha(enabled ? 1.0f : 0.6f);
+        binding.buttonExportBrut.setEnabled(enabled);
+        binding.buttonExportJournalier.setEnabled(enabled);
+        binding.buttonExportBrut.setAlpha(enabled ? 1.0f : 0.6f);
+        binding.buttonExportJournalier.setAlpha(enabled ? 1.0f : 0.6f);
         binding.buttonImport.setAlpha(enabled ? 1.0f : 0.6f);
     }
 }
