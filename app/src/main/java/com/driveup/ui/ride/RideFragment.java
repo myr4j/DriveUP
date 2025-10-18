@@ -48,7 +48,6 @@ public class RideFragment extends Fragment implements RideAdapter.OnRideClickLis
 
     private void observeViewModel() {
         rideViewModel.getRides().observe(getViewLifecycleOwner(), rides -> {
-            Log.d(TAG, "Rides updated: " + (rides != null ? rides.size() : 0));
             if (rides != null) {
                 rideAdapter.updateRides(rides);
                 updateEmptyState(rides.isEmpty());
@@ -73,15 +72,11 @@ public class RideFragment extends Fragment implements RideAdapter.OnRideClickLis
 
     @Override
     public void onDeleteRide(Ride ride) {
-        Log.d(TAG, "Delete ride requested: " + ride.getId());
-        Log.d(TAG, "Ride details - Date: " + ride.getDate() + ", Price: " + ride.getPrice());
         rideViewModel.deleteRide(ride);
-        Log.d(TAG, "Delete ride call completed");
     }
 
     @Override
     public void onRideAdded(Ride ride) {
-        Log.d(TAG, "Ride added: " + ride.getDate() + " " + ride.getStartHour() + "-" + ride.getEndHour());
         rideViewModel.addRide(ride);
     }
 

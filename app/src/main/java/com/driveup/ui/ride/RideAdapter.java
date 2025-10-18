@@ -1,15 +1,11 @@
 package com.driveup.ui.ride;
 
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.driveup.R;
 import com.driveup.databinding.ItemRideCardBinding;
 
 import java.time.Duration;
@@ -88,11 +84,8 @@ public class RideAdapter extends RecyclerView.Adapter<RideAdapter.RideViewHolder
 
             // Set delete button click listener
             binding.buttonDeleteRide.setOnClickListener(v -> {
-                Log.d("RideAdapter", "Delete button clicked for ride: " + ride.getId());
                 if (listener != null) {
                     listener.onDeleteRide(ride);
-                } else {
-                    Log.w("RideAdapter", "Listener is null!");
                 }
             });
         }
