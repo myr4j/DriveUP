@@ -127,6 +127,10 @@ public class ImportExportFragment extends Fragment {
             androidx.lifecycle.ViewModelProvider viewModelProvider = new androidx.lifecycle.ViewModelProvider(requireActivity(), new androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory(requireActivity().getApplication()));
             com.driveup.ui.ride.RideViewModel rideViewModel = viewModelProvider.get(com.driveup.ui.ride.RideViewModel.class);
             rideViewModel.refreshRides();
+            
+            // Rafraîchir aussi les statistiques
+            com.driveup.ui.stat.StatViewModel statViewModel = viewModelProvider.get(com.driveup.ui.stat.StatViewModel.class);
+            statViewModel.refreshStatistics();
         } catch (Exception e) {
             Log.e("ImportExport", "Error notifying data change", e);
         }

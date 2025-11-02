@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.driveup.databinding.FragmentRideBinding;
+import com.driveup.ui.stat.StatViewModel;
 
 
 public class RideFragment extends Fragment implements RideAdapter.OnRideClickListener, AddRideDialog.OnRideAddedListener {
@@ -73,11 +74,26 @@ public class RideFragment extends Fragment implements RideAdapter.OnRideClickLis
     @Override
     public void onDeleteRide(Ride ride) {
         rideViewModel.deleteRide(ride);
+        // Rafraîchir les statistiques
+        refreshStatistics();
     }
 
     @Override
     public void onRideAdded(Ride ride) {
         rideViewModel.addRide(ride);
+        // Rafraîchir les statistiques
+        refreshStatistics();
+    }
+
+    private void refreshStatistics() {
+        try {
+            StatViewModel statViewModel = new ViewModelProvider(requireActivity(),
+                    new ViewModelProvider.AndroidViewModelFactory(requireActivity().getApplication()))
+                    .get(StatViewModel.class);
+            statViewModel.refreshStatistics();
+        } catch (Exception e) {
+            Log.w(TAG, "Could not refresh statistics", e);
+        }
     }
 
     @Override

@@ -1,22 +1,290 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.dashboard.DashboardFragment">
+    android:fillViewport="true"
+    android:paddingStart="12dp"
+    android:paddingEnd="12dp"
+    android:paddingTop="12dp"
+    android:paddingBottom="120dp"
+    android:clipToPadding="false"
+    android:background="@android:color/white"
+    tools:context=".ui.stat.StatFragment">
 
-    <TextView
-        android:id="@+id/text_dashboard"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:orientation="vertical">
+
+        <!-- KPI Cards Row -->
+
+        <!-- Section: Jours de la Semaine -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="96dp"
+            android:layout_marginBottom="16dp"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_total_rides"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="6dp"
+                android:layout_weight="1"
+                app:cardBackgroundColor="@color/purple_500"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/text_total_rides"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textColor="@color/white"
+                        android:textSize="32sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:alpha="0.9"
+                        android:text="Total Courses"
+                        android:textColor="@color/white"
+                        android:textSize="12sp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_total_amount"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_weight="1"
+                app:cardBackgroundColor="@color/purple_500"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/text_total_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0,00 €"
+                        android:textColor="@color/white"
+                        android:textSize="28sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:alpha="0.9"
+                        android:text="Revenus Total"
+                        android:textColor="@color/white"
+                        android:textSize="12sp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Analyse par jour de la semaine"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/purple_700"
+            android:layout_marginBottom="12dp"
+            android:layout_marginTop="8dp" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_day_stats"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="2dp"
+            app:cardBackgroundColor="@android:color/white">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/label_month"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Par mois"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/holo_blue_bright"
+                    android:layout_marginBottom="12dp" />
+
+                <androidx.core.widget.NestedScrollView
+                    android:id="@+id/scroll_month_days"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxHeight="250dp"
+                    android:layout_marginBottom="16dp"
+                    android:overScrollMode="never">
+
+                    <LinearLayout
+                        android:id="@+id/layout_month_days"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" />
+                </androidx.core.widget.NestedScrollView>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#E0E0E0"
+                    android:layout_marginVertical="8dp" />
+
+                <TextView
+                    android:id="@+id/label_year"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Par année"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/holo_blue_bright"
+                    android:layout_marginBottom="12dp" />
+
+                <androidx.core.widget.NestedScrollView
+                    android:id="@+id/scroll_year_days"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxHeight="250dp"
+                    android:overScrollMode="never">
+
+                    <LinearLayout
+                        android:id="@+id/layout_year_days"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" />
+                </androidx.core.widget.NestedScrollView>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Section: Plages Horaires -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Analyse par plage horaire"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/purple_700"
+            android:layout_marginBottom="12dp" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_time_slot_stats"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="2dp"
+            app:cardBackgroundColor="@android:color/white">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/label_month_timeslot"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Par mois"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/holo_blue_bright"
+                    android:layout_marginBottom="12dp" />
+
+                <androidx.core.widget.NestedScrollView
+                    android:id="@+id/scroll_month_timeslots"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxHeight="250dp"
+                    android:layout_marginBottom="16dp"
+                    android:overScrollMode="never">
+
+                    <LinearLayout
+                        android:id="@+id/layout_month_timeslots"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" />
+                </androidx.core.widget.NestedScrollView>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#E0E0E0"
+                    android:layout_marginVertical="8dp" />
+
+                <TextView
+                    android:id="@+id/label_year_timeslot"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Par année"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/holo_blue_bright"
+                    android:layout_marginBottom="12dp" />
+
+                <androidx.core.widget.NestedScrollView
+                    android:id="@+id/scroll_year_timeslots"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxHeight="250dp"
+                    android:overScrollMode="never">
+
+                    <LinearLayout
+                        android:id="@+id/layout_year_timeslots"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" />
+                </androidx.core.widget.NestedScrollView>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:id="@+id/text_empty_stats"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Aucune statistique disponible\n\nAjoutez des courses pour voir les statistiques"
+            android:textAlignment="center"
+            android:textSize="16sp"
+            android:textColor="@android:color/darker_gray"
+            android:padding="32dp"
+            android:layout_marginBottom="100dp"
+            android:visibility="gone" />
+
+        <!-- Spacer pour éviter que la navbar cache le contenu -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="120dp" />
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>
